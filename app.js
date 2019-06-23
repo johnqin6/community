@@ -3,6 +3,8 @@ const path = require('path')
 const session = require('express-session')
 const app = new express()
 
+const userRouter = require('./routes/user')
+
 // 静态化文件
 app.use(express.static('public'))
 app.use('/node_modules', express.static('./node_modules'))
@@ -21,6 +23,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false // 无论你是否使用 Session ，我都默认直接给你分配一把钥匙
 }))
+
+// 使用路由
+app.use(userRouter)
 
 // 配置处理404 的中间件
 app.use((req, res) => {
