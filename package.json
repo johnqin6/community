@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
+    "express-session": "^1.16.2",
+    "jquery": "^3.4.1",
+    "mongoose": "^5.6.0"
+  },
+  "name": "community",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnqin6/community.git"
+  },
+  "author": "johnqin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnqin6/community/issues"
+  },
+  "homepage": "https://github.com/johnqin6/community#readme",
+  "description": ""
+}
