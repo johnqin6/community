@@ -9,3 +9,15 @@
 .navbar-default .navbar-nav>.open>a:focus {
   background: none;
 }
+
+.nav-collapse-right {
+  flex-basis: 80%;
+}
+
+.nav-left {
+  float: left;
+}
+
+.nav-right {
+  float: right;
+}

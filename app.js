@@ -4,6 +4,7 @@ const session = require('express-session')
 const app = new express()
 
 const userRouter = require('./routes/user')
+const loginRouter = require('./routes/login')
 
 // 静态化文件
 app.use(express.static('public'))
@@ -26,6 +27,7 @@ app.use(session({
 
 // 使用路由
 app.use(userRouter)
+app.use(loginRouter)
 
 // 配置处理404 的中间件
 app.use((req, res) => {
