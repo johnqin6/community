@@ -1,43 +1,37 @@
  
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-expand-md navbar-dark">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
-            data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/" class="navbar-brand">
-                <img src="/img/logo3.png" alt="" width="90px">
-            </a>
-        </div>
-        <div class="navbar-collapse nav-collapse-right" id="bs-example-navbar-collapse-2">
+        <a href="/" class="navbar-brand">
+            <img src="/img/logo3.png" alt="" width="90px">
+        </a>
+        <button class="navbar-toggler nav-collapse-btn" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
             <div class="aw-search-box nav-left">
               <form class="navbar-search" >
                 <input class="form-control search-query" type="text" placeholder="搜索问题、话题或人" autocomplete="off" />
               </form>
             </div>      
-            <ul class="aw-user-nav nav-right">
+            <ul class=" float-right" style="width: 70%">
                 {{if user}}
-                <a href="/topics/new" class="btn btn-default navbar-btn">发起</a>
-                <li class="dropdown">
+                <li class="dropdown float-right" style="list-style: none;">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
                     aria-expanded="false">
                         <img src="/img/avatar-default.png" alt="" width="20" height="20">
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown-current-user">
-                            当前登陆用户：
+                        <li class="dropdown-item active">
+                            当前登陆用户：{{ user.nickname }}
                         </li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">个人主页</a></li>
-                        <li><a href="/settings/profile">设置</a></li>
-                        <li><a href="/logout">退出</a></li>
+                        <li class="dropdown-item" role="separator" class="divider"></li>
+                        <li class="dropdown-item"><a href="#">个人主页</a></li>
+                        <li class="dropdown-item"><a href="/settings/profile">设置</a></li>
+                        <li class="dropdown-item"><a href="/logout">退出</a></li>
                     </ul>
                 </li>
+                <a href="/topics/new" class="btn btn-primary navbar-btn float-right" style="margin-right: 20px;">发起</a>
                 {{else}}
                 <a href="/login" class="btn btn-primary navbar-btn">登录</a>
                 <a href="/register" class="btn btn-success navbar-btn">注册</a>

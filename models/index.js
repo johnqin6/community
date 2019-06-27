@@ -17,5 +17,5 @@ require('./article')
 require('./comment')
 
 exports.User = mongoose.model('User')
-exports.Article = mongoose.model('Article')
-exports.Comment = mongoose.model('Comment')
+// exports.Article = mongoose.model('Article')
+// exports.Comment = mongoose.model('Comment')

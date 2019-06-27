@@ -14,10 +14,7 @@
   flex-basis: 80%;
 }
 
-.nav-left {
-  float: left;
+.nav-collapse-btn {
+  background-color: #555;
 }
 
-.nav-right {
-  float: right;
-}
