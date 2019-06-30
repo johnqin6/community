@@ -9,8 +9,8 @@ const ArticeSchema = new Schema({
         required: true
     },
     author: {
-        type: String,
-        required: true
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
     },
     type: {
         type: Number,
@@ -43,4 +43,4 @@ const ArticeSchema = new Schema({
     }
 })
 
-mongoose.model('Artice', ArticeSchema)
+mongoose.model('Article', ArticeSchema)

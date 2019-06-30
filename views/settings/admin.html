@@ -5,26 +5,27 @@
 
 {{block 'body'}}
 <section class="container">
+  <div class="row">
     {{include '../partials/settings-nav.html'}}
-    <div class="col-md-5">
+    <div class="col-lg-5">
         <div class="subhead">
             <h2>修改密码</h2>
         </div>
         <hr>
-        <form>
+        <form id="form">
             <div class="form-group">
                 <label for="exampleInputPassword1">当前密码</label>
-                <input type="password" class="form-control" id="pleInputPassword1" placeholder="">
+                <input type="password" class="form-control" name="curPassword"  placeholder="">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">新的密码</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+                <input type="password" class="form-control" name="password" placeholder="">
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">确认密码</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+                <input type="password" class="form-control" name="password1" placeholder="">
             </div>
-            <button type="submit" class="btn btn-success">保存</button>
+            <span class="btn btn-success" id="updatePassword">保存</span>
         </form>
         <div class="subhead">
             <h2>注销账户</h2>
@@ -33,9 +34,57 @@
         <div>
             <div>
                 <p>一旦注销，不可找回，请谨慎操作</p>
-                <button class="btn btn-danger">删除</button>
+                <button class="btn btn-danger" id="delUser">删除</button>
             </div>
         </div>
     </div>
+  </div>
 </section>
+{{/block}}
+{{block 'script'}}
+<script>
+$(document).ready(function(){
+  $('#updatePassword').click(function(e) {
+    e.preventDefault()
+    if(!$("input[name=curPassword]").val()) {
+      alert('老密码不能为空！')
+      return;
+    }
+    if(!$("input[name=password]").val()) {
+      alert('当前密码不能为空！')
+      return;
+    }
+    if(!$("input[name=password1]").val()) {
+      alert('重复密码不能为空！')
+      return;
+    }
+    var forms = $('#form').serializeArray();
+    var formData = $('#form').serialize()
+    $.ajax({
+        url: '/settings/updatePassword',
+        type: 'post',
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+          console.log(data)
+          var err_code = data.err_code
+          if (err_code === 0) {
+            alert(data.message)
+          }
+        }
+      })
+  })
+
+  $('#delUser').click(function(e) {
+    e.preventDefault()
+    $.get('/delUser',function(data) {
+      let err_code = data.err_code;
+      if(err_code == 0) {
+        alert(data.message);
+        location.url = '/login';
+      }
+    })
+  })
+});
+</script>
 {{/block}}

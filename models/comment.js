@@ -4,8 +4,8 @@ const Schema = mongoose.Schema
 
 const CommentSchema = new Schema({
     commentArticleId: {
-        type: String,
-        required: true
+        type: mongoose.Schema.ObjectId,
+        ref: 'Article'
     },
     commentator: {
         type: String,

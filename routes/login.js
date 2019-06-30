@@ -1,5 +1,6 @@
 const express = require('express')
 const models = require('../models/index')
+const md5 = require('blueimp-md5')
 const router = express.Router()
 
 const User = models.User
@@ -11,7 +12,7 @@ router.get('/login', (req, res) => {
 // 登陆
 router.post('/login', (req, res) => {
   let email = req.body.email
-  let password = req.body.password
+  let password = md5(md5(req.body.password))
   User.findOne({email: email, password: password}, (err, doc, next) => {
     if(err) next(err) 
     req.session.user = doc
@@ -34,12 +35,42 @@ router.get('/register', (req, res) => {
 
 // 注册
 router.post('/register', (req, res) => {
-  // req.body.password = 
+  let email = req.body.email
+  let nickname = req.body.nickname
+  let password = md5(md5(req.body.password))
   const user = new User({
-    ...req.body
+    email: email,
+    nickname: nickname,
+    password: password
   })
-  user.save(err => {
-    console.log(err)
+  User.findOne({email: email}, (err, data) => {
+    if(err) {
+      console.log(err)
+    } else if (data !== null) {
+      res.status(200).send({
+        err_code: 1,
+        message: '邮箱已存在'
+      })
+    } else {
+      User.findOne({nickname: nickname}, (err, data) => {
+        if(err) {
+          console.log(err)
+        } else if (data !== null) {
+          res.status(200).send({
+            err_code: 2,
+            message: '昵称已存在'
+          })
+        } else {
+          user.save((err,next) => {
+            if(err) next(err)
+            res.status(200).send({
+              err_code: 0,
+              message: '注册成功'
+            })
+          })
+        }
+      })
+    }
   })
 })
 
