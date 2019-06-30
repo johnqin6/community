@@ -1,6 +1,6 @@
-{{extend '../_layouts/home.html'}}
+{{extend '../layouts/home.html'}}
 
-{{block 'title'}}{{'多人社区 - 首页'}}{{/block}}
+{{block 'title'}}{{'多人社区 - 文章'}}{{/block}}
 
 {{block 'head'}}
 <link rel="stylesheet" href="/css/markdown-github.css">
@@ -16,7 +16,10 @@
   <div class="row">
     <div class="col-md-9">
       <article class="markdown-body">
-      <h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>测试</h1>
+      <h1 id="_1"><a name="user-content-_1" href="#_1" class="headeranchor-link" aria-hidden="true">
+        <span class="headeranchor"></span></a>{{article.title}}
+      </h1>
+      {{ article.artice}}
       <blockquote>
         <p>杨柳青青江水平</p>
       </blockquote>
@@ -113,7 +116,7 @@
       <form>
         <div class="form-group">
           <label for="exampleInputPassword1">添加回复</label>
-          <textarea class="form-control" name="" id="" cols="10" rows="10"></textarea>
+          <textarea class="form-control" name="reply" id="" cols="10" rows="10"></textarea>
         </div>
         <button type="submit" class="btn btn-success">回复</button>
       </form>
@@ -121,3 +124,9 @@
   </div>
 </section>
 {{/block}}
+
+{{block 'script'}}
+<script>
+  
+</script>
+{{block}}

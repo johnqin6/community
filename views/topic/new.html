@@ -1,4 +1,4 @@
-{{extend '../_layouts/home.html'}}
+{{extend '../layouts/home.html'}}
 
 {{block 'title'}}{{'多人博客 - 首页'}}{{/block}}
 
@@ -9,24 +9,52 @@
       <form>
         <div class="form-group">
           <label for="exampleInputEmail1">选择板块</label>
-          <select class="form-control">
-            <option>分享</option>
-            <option>问答</option>
-            <option>招聘</option>
-            <option>客户端测试</option>
+          <select class="form-control" id="type" name="type">
+            <option value="1">精华</option>
+            <option value="2">分享</option>
+            <option value="3">问答</option>
+            <option value="4">招聘</option>
           </select>
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">标题</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+          <label for="title">标题</label>
+          <input type="email" class="form-control" id="title" placeholder="请输入标题">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">内容</label>
-          <textarea class="form-control" rows="3"></textarea>
+          <label >内容</label>
+          <textarea class="form-control" rows="3" id="artice" name="artice"></textarea>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
+        <span class="btn btn-primary" id="save">提交</span>
       </form>
     </div>
   </div>
 </section>
+{{/block}}
+
+{{block 'script'}}
+<script>
+  $('#save').click(function() {
+    let type = $("#type option:selected").val();
+    let title = $('#title').val();
+    let artice = $('#artice').val();
+    if(!type) {
+      alert('请选择文章类型');
+      return ;
+    }
+    if(!title) {
+      alert('请输入文章标题');
+      return ;
+    }
+    $.post('/artice/add', {
+      type: type,
+      title: title,
+      artice: artice
+    }, function(data) {
+      if(data.err_code === 0) {
+        alert(data.message)
+        window.location.href = '/'
+      }
+    })
+  })
+</script>
 {{/block}}

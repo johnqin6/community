@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\johnqin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add JavaScript-MD5
+  C:\Program Files\nodejs\node.exe C:\Users\johnqin\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add editormd
 
 PATH: 
   C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;D:\Program Files\bin;D:\Program Files\Git\bin;D:\Program Files\MongoDB\Server\4.0\bin;C:\Users\johnqin\AppData\Local\Microsoft\WindowsApps;C:\Users\johnqin\AppData\Roaming\npm;D:\soft\Microsoft VS Code\bin;D:\soft\
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/JavaScript-MD5: Not found
+  Error: https://registry.yarnpkg.com/editormd: Not found
       at Request.params.callback [as _callback] (C:\Users\johnqin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66255:18)
       at Request.self.callback (C:\Users\johnqin\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:129397:22)
       at Request.emit (events.js:197:13)
@@ -30,6 +30,7 @@ npm manifest:
   {
     "dependencies": {
       "art-template": "^4.13.2",
+      "blueimp-md5": "^2.10.0",
       "bootstrap": "^4.3.1",
       "express": "^4.17.1",
       "express-art-template": "^1.0.1",
@@ -108,6 +109,11 @@ Lockfile:
     version "3.5.1"
     resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
     integrity sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==
+  
+  blueimp-md5@^2.10.0:
+    version "2.10.0"
+    resolved "https://registry.yarnpkg.com/blueimp-md5/-/blueimp-md5-2.10.0.tgz#02f0843921f90dca14f5b8920a38593201d6964d"
+    integrity sha512-EkNUOi7tpV68TqjpiUz9D9NcT8um2+qtgntmMbi5UKssVX2m/2PLqotcric0RE63pB3HPN/fjf3cKHN2ufGSUQ==
   
   body-parser@1.19.0:
     version "1.19.0"

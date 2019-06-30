@@ -7,52 +7,56 @@
   <div class="row">
     {{include '../partials/settings-nav.html'}}
     <div class="col-lg-5">
-      <form>
+      <form id="userForm">
         <div class="form-group">
           <label for="exampleInputEmail1">账号</label>
           <p class="form-control-static">{{ user.email }}</p>
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">昵称</label>
-          <input type="text" class="form-control" id="exampleInputPassword1" placeholder="" value="{{user.nickname}}">
+          <label>昵称</label>
+          <input type="text" class="form-control" id="nickname" name="nickname" placeholder="" value="{{user.nickname}}">
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1">介绍</label>
-          <textarea class="form-control" rows="3"></textarea>
+          <label >介绍</label>
+          <textarea class="form-control" rows="3" id="introduce" name="introduce">{{ user.introduce }}</textarea>
         </div>
         <div class="form-group">
           <label>性别</label>
           <div>
             <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"> 男  
+              <input type="radio" name="gender" value="1" checked="{{user.gender === 1}}"> 男  
             </label>
             <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"> 女
+              <input type="radio" name="gender" value="0" checked="{{user.gender === 0}}"> 女
             </label>
             <label class="radio-inline">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3"> 保密
+              <input type="radio" name="gender"  value="-1" checked="{{user.gender === -1}}"> 保密
             </label>
           </div>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">生日</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="">
+          <input type="date" class="form-control" id="birth" placeholder="请选择生日" value="{{user.birth}}">
         </div>
-        <button type="submit" class="btn btn-success">保存</button>
+        <span class="btn btn-success" id="save">保存</span>
       </form>
     </div>
     <div class="col-lg-2 profile-avatar">
       <dl>
         <dt>头像设置</dt>
           <dd>
-            <span class="avatar" id="updateImage">
+            <p class="avatar" >
               上传图片
-            </span>
-            <img id="prewImage">
-            <input type="file" name="file" id = "input_file" style="display: none;"
-            accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" >
+              {{ if user}}
+              <img id="prewImage" src="{{user.avatar}}" class="prew-img">
+              {{ else }}
+              <img id="prewImage" src="{{user.avatar}}" class="prew-img" style="display: none;">
+              {{ /if }}
+              <input type="file" name="file" id = "updateImage" class="avatar-img"
+              accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" >
+            </p>
             <div>
-              <button class="btn btn-default" href="">上传头像</button>
+              <button class="btn btn-primary"  id="update-avatar">上传头像</button>
             </div>
           </dd>
       </dl>
@@ -62,12 +66,57 @@
 {{/block}}
 {{block 'script'}}
 <script>
-$(document).ready(function(){
-  $('#updateImage').clcik(function(e) {
-    e.preventDefault();
-    var images = $('#input_file').files[0];
-    // reads.readAs
-  })
-});
+   var updateImage = document.getElementById('updateImage');
+   var avatar = '';
+   updateImage.onchange = function(e) {
+     var reader = null;
+     var prewImage = document.getElementById('prewImage');
+     if(window.FileReader) {  // 判断浏览器是否支持读取文件
+       reader = new FileReader()
+     }
+     var filePath = this.files[0];
+     reader.readAsDataURL(filePath); // 读取文件路径 
+     reader.onload = function(e) {  // 读取文件信息并预览
+      prewImage.src = this.result;
+      avatar = this.result;
+      prewImage.style.display = "block";
+     }
+   }
+   
+   // 上传头像
+   $('#update-avatar').click(function (e) {
+    e.preventDefault()
+    if(!avatar) return;
+    $.post('/updateAvater',{
+        avatar: avatar
+      }, function(data) {
+      if(data.err_code == 0) {
+        alert(data.message)
+        location.url = '/settings/profile'
+      }
+    })
+   })
+
+   // 编辑用户信息
+   $('#save').click(function() {
+     let nickname = $('#nickname').val();
+     let introduce = $('#introduce').val();
+     let gender = $('input[name=gender]:checked').val();
+     let birth = $('#birth').val();
+    if(!nickname) {
+      alert('昵称不能为空')
+      return;
+    } 
+    $.post('/user/editInfo',{
+      nickname: nickname,
+      introduce: introduce,
+      gender: gender,
+      birth: birth
+    }, function(data) {
+      if(data.err_code === 0) {
+        alert(data.message)
+      }
+    })
+   })
 </script>
 {{/block}}
